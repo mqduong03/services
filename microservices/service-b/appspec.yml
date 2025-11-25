@@ -1,18 +1,31 @@
 version: 0.0
 os: linux
 
+files:
+  - source: /
+    destination: /home/ec2-user/service-b
+
+permissions:
+  - object: /home/ec2-user/service-b/scripts
+    pattern: "*.sh"
+    owner: root
+    group: root
+    mode: 755
+    type:
+      - file
+
 hooks:
   ApplicationStop:
     - location: scripts/stop_container.sh
       timeout: 300
       runas: root
   
-  AfterInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 300
+  ApplicationStart:
+    - location: scripts/build_and_start.sh
+      timeout: 600
       runas: root
   
-  ApplicationStart:
-    - location: scripts/start_container.sh
+  ValidateService:
+    - location: scripts/validate.sh
       timeout: 300
       runas: root
