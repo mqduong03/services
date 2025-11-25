@@ -1,14 +1,4 @@
-from flask import Flask, jsonify
+print("Service B is running")
 
-app = Flask(__name__)
-
-@app.route('/health')
-def health():
-    return jsonify({"status": "healthy", "service": "service-b"})
-
-@app.route('/')
-def home():
-    return jsonify({"message": "Hello from Service B"})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8001)
+while True:
+    pass
